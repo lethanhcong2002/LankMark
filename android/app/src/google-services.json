@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "341241663453",
+    "firebase_url": "https://restaurantmanagement-5d1dd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "restaurantmanagement-5d1dd",
+    "storage_bucket": "restaurantmanagement-5d1dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341241663453:android:a97fb5f3c51527f049b034",
+        "android_client_info": {
+          "package_name": "com.lankmark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341241663453-uc3j9rn1r83j0ijnppusnuln2557sps0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lankmark",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "341241663453-qg43r8k99d0810m3tr81e50e6l9hrbb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_HMDP7lLXqCbuCOaTLQVPXhX_Bs1Vyxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341241663453-jjgqce28h6smot61mh3tdc0spu4u4bb5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
