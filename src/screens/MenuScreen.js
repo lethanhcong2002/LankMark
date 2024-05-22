@@ -12,21 +12,30 @@ function MenuScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    const unsubscribe = getDishesFromFireStore(dishes => {
-      setInitialData(dishes);
-      setBodyData(dishes);
-    });
 
-    return () => unsubscribe();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await getDishesFromFireStore((dishes) => {
+          setInitialData(dishes);
+          setBodyData(dishes);
+        });
+
+      } catch (error) {
+        console.error("Error fetching dishes:", error);
+      }
+    };
+
+    fetchData();
   }, []);
+
 
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (query === '') {
       setBodyData(initialData);
     } else {
-      const filteredData = initialData.filter(item => 
+      const filteredData = initialData.filter(item =>
         item.foodName.toLowerCase().includes(query.toLowerCase())
       );
       setBodyData(filteredData);
@@ -46,11 +55,12 @@ function MenuScreen({ navigation }) {
     navigation.navigate('Detail_Dishes')
     dispatch(getData(item))
   }
+
   const data = [
     { value: '0', label: 'Tất cả' },
     { value: 'Khai vị', label: 'Khai vị' },
     { value: 'Món chính', label: 'Món chính' },
-    { value: 'Tráng Miệng', label: 'Tráng Miệng' },
+    { value: 'Tráng miệng', label: 'Tráng Miệng' },
     { value: 'Nước', label: 'Nước' },
   ];
 
@@ -72,7 +82,7 @@ function MenuScreen({ navigation }) {
         numColumns={2}
         columnWrapperStyle={{ gap: 10, paddingHorizontal: 12 }}
         contentContainerStyle={{ gap: 10, paddingBottom: 12 }}
-        keyExtractor={item => item.uid}
+        keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
@@ -81,8 +91,10 @@ function MenuScreen({ navigation }) {
               onPress={() => handleDetailDishes(item)}>
               <ImageBackground
                 source={{ uri: item.imageURL }}
-                className="flex-1 justify-center items-center flex-row h-24">
-                <Text className="text-white font-bold text-lg">{item.foodName}</Text>
+                className="justify-center items-center flex-row h-24">
+                <View className="justify-center items-center h-full w-full" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+                  <Text className="text-white font-bold text-lg">{item.foodName}</Text>
+                </View>
               </ImageBackground>
             </TouchableOpacity>
           );

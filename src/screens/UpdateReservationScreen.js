@@ -4,28 +4,27 @@ import {Button, Text, TextInput} from 'react-native-paper';
 import DatePicker from 'react-native-date-picker';
 import {useSelector} from 'react-redux';
 import CustomTextInput from '../components/CustomTextInput';
-import {addNewReservation} from '../handle_code/reservationManage';
+import {
+  addNewReservation,
+  updateReservation,
+} from '../handle_code/reservationManage';
 
-function ReservationScreen({navigation}) {
-  const user = useSelector(state => state.auth.userData);
-  const [date, setDate] = useState(new Date());
+function UpdateReservationScreen({navigation, route}) {
+  const {reservationData} = route.params;
+  const [date, setDate] = useState(new Date(reservationData.bookingDate));
   const [open, setOpen] = useState(false);
-  const [numberOfPeople, setNumberOfPeople] = useState('1');
+  const [numberOfPeople, setNumberOfPeople] = useState(
+    reservationData.numberOfPeople.toString(),
+  );
 
   async function handleSubmit() {
     if (parseFloat(numberOfPeople) < 1 || numberOfPeople === '') {
       Alert.alert('Vui lòng nhập số người tham dự');
       return;
     }
-    await addNewReservation({
-      customerId: user.uid,
-      customerName: user.customerName,
-      idCard: user.citizenID,
-      phoneNumber: user.phoneNumber,
+    await updateReservation(reservationData.id, {
       numberOfPeople: Number(numberOfPeople),
       bookingDate: date.toISOString(),
-      bookingTime: new Date().toISOString(),
-      status: 'Chờ xác nhận',
     });
     navigation.goBack();
   }
@@ -38,26 +37,22 @@ function ReservationScreen({navigation}) {
         <Text className="text-lg my-2 font-bold">Thông tin khách hàng</Text>
         <Text className="my-2">
           <Text className="font-bold">Tên khách hàng: </Text>
-          {user ? user.customerName : ''}
-        </Text>
-        <Text className="my-2">
-          <Text className="font-bold">Email: </Text>
-          {user ? user.email : ''}
+          {reservationData ? reservationData.customerName : ''}
         </Text>
         <Text className="my-2">
           <Text className="font-bold">Số điện thoại: </Text>
-          {user ? user.phoneNumber : ''}
+          {reservationData ? reservationData.phoneNumber : ''}
         </Text>
         <Text className="my-2">
           <Text className="font-bold">Căn cước công dân: </Text>
-          {user ? user.citizenID : ''}
+          {reservationData ? reservationData.idCard : ''}
         </Text>
       </View>
       <View className="mb-4">
         <CustomTextInput
           label="Số người tham dự"
           value={numberOfPeople}
-          keyboardType='decimal-pad'
+          keyboardType="decimal-pad"
           onChangeText={number => {
             setNumberOfPeople(number);
           }}
@@ -87,7 +82,10 @@ function ReservationScreen({navigation}) {
         }}
       />
       <View className="mt-6">
-        <Button mode="contained" className="bg-green-500" onPress={handleSubmit}>
+        <Button
+          mode="contained"
+          className="bg-green-500"
+          onPress={handleSubmit}>
           Xác nhận
         </Button>
       </View>
@@ -95,4 +93,4 @@ function ReservationScreen({navigation}) {
   );
 }
 
-export default ReservationScreen;
+export default UpdateReservationScreen;

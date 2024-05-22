@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import CartScreen from '../screens/CartScreen';
 import ReservationScreen from '../screens/ReservationScreen';
 import DetailReservationScreen from '../screens/DetailReservationScreen';
+import UpdateReservationScreen from '../screens/UpdateReservationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,14 @@ function CartStack() {
         component={ReservationScreen}
         options={{
           title: 'Đặt bàn',
+        }}
+        navigation={navigation}
+      />
+      <Stack.Screen
+        name="Update_Reservation"
+        component={UpdateReservationScreen}
+        options={{
+          title: 'Cập nhật thông tin',
         }}
         navigation={navigation}
       />

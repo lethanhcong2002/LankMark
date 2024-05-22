@@ -1,7 +1,7 @@
 import React from 'react';
-import {Dialog, Button, Paragraph} from 'react-native-paper';
+import { Dialog, Button, Paragraph } from 'react-native-paper';
 
-function CustomDialog({visible, onDismiss, title, content, onConfirm}) {
+function CustomDialog({ visible, onDismiss, title, content, onConfirm }) {
   return (
     <Dialog visible={visible} onDismiss={onDismiss}>
       <Dialog.Title>{title}</Dialog.Title>

@@ -16,7 +16,7 @@ function UpdateUserScreen({navigation}) {
   const userData = useSelector(state => state.auth.userData);
 
   useEffect(() => {
-    setFullName(userData.displayName);
+    setFullName(userData.customerName);
     setPhoneNumber(userData.phoneNumber);
     setCitizenID(userData.citizenID);
   }, [userData]);
@@ -27,8 +27,12 @@ function UpdateUserScreen({navigation}) {
       phoneNumber: phoneNumber,
       citizenID: citizenID
     };
+    const newUserData = {
+      ...userData,
+      ...updatedUserData,
+    };
     updateUserInfo(userData.uid ,updatedUserData);
-    dispatch(updateUser(updatedUserData));
+    dispatch(updateUser(newUserData));
     navigation.goBack();
   }
   return (

@@ -1,32 +1,62 @@
 import React from 'react';
 import {ScrollView, View} from 'react-native';
-import {Card, Text} from 'react-native-paper';
+import {Button, Card, Text} from 'react-native-paper';
 
-function DetailReservationScreen() {
+function DetailReservationScreen({route}) {
+  const {reservationData} = route.params;
   return (
-    <ScrollView className="p-4">
-      <View className="p-2 mb-4">
+    <ScrollView>
+      <View className="p-4">
         <Card className="p-2">
-          <Card.Title title="Su hào chả lụa" titleVariant="titleLarge" />
-          <Card.Content>
-            <Text>Thông tin liên quan</Text>
+          <Card.Title
+            title="Thông tin lịch đặt"
+            titleVariant="titleLarge"
+            titleStyle={{textAlign: 'center'}}
+          />
+          <Card.Content className="mb-2">
+            <Text variant="titleMedium" className="mb-1">
+              Thông tin khách hàng:
+            </Text>
+            <View className="ml-3">
+              <Text variant="bodyMedium">
+                <Text variant="titleSmall">Tên khách hàng: </Text>
+                {reservationData.customerName}
+              </Text>
+              <Text variant="bodyMedium">
+                <Text variant="titleSmall">Số điện thoại: </Text>
+                {reservationData.phoneNumber}
+              </Text>
+              <Text variant="bodyMedium">
+                <Text variant="titleSmall">Căn cước: </Text>
+                {reservationData.idCard}
+              </Text>
+            </View>
           </Card.Content>
         </Card>
-      </View>
-      <View className="p-2  mb-4">
-        <Card className="p-2">
-          <Card.Content className="mb-2">
-            <Text variant="titleLarge">Trong món ăn có</Text>
-            <Text variant="bodyMedium">
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-            </Text>
-          </Card.Content>
+        <Card className="p-2 mt-4">
           <Card.Content>
-            <Text variant="titleLarge">Mô tả</Text>
-            <Text variant="bodyMedium">
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+            <Text variant="titleMedium" className="mb-1">
+              Thông tin lịch đặt:
             </Text>
+            <View className="ml-3">
+              <Text variant="bodyMedium">
+                <Text variant="titleSmall">Thời gian: </Text>
+                {new Date(reservationData.bookingDate).toLocaleString()}
+              </Text>
+              <Text variant="bodyMedium">
+                <Text variant="titleSmall">Số người: </Text>
+                {reservationData.numberOfPeople}
+              </Text>
+              <Text variant="bodyMedium">
+                <Text variant="titleSmall">Trạng thái: </Text>
+                {reservationData.status}
+              </Text>
+            </View>
           </Card.Content>
+          <Card.Actions>
+            <Button>Cập nhật</Button>
+            <Button>Hủy lịch</Button>
+          </Card.Actions>
         </Card>
       </View>
     </ScrollView>

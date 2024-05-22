@@ -1,69 +1,28 @@
 // actions/authActions.js
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-export const Init = () => {
-    return async dispatch => {
-        try {
-            const userData = await AsyncStorage.getItem("UserData");
-            if(userData !== null) {
-                dispatch({
-                    type: 'LOGIN',
-                    payload: JSON.parse(userData),
-                });
-            }
-        } catch (error) {
-            console.error('Error initializing user data:', error);
-        }
-    };
-}
+import {persistor} from '../reducers/rootReducer';
 
 export const loginUser = userData => {
-  return async dispatch => {
-        try {
-            await AsyncStorage.setItem("UserData", JSON.stringify(userData));
-            dispatch({
-                type: 'LOGIN',
-                payload: userData,
-            });
-        } catch (error) {
-            console.error('Error logging in:', error);
-        }
-    };
+  return {
+    type: 'LOGIN',
+    payload: userData,
+  };
 };
 
 export const logoutUser = () => {
-  return async dispatch => {
-        try {
-            await AsyncStorage.removeItem("UserData");
-            dispatch({
-                type: 'LOGOUT',
-                payload: null,
-            });
-        } catch (error) {
-            console.error('Error logging out:', error);
-        }
-    };
+  persistor.purge();
+  return {
+    type: 'LOGOUT',
+  };
 };
 
-export const updateUser = updatedUserData => {
-    return async dispatch => {
-        try {
-            const userData = await AsyncStorage.getItem("UserData");
-            if(userData !== null) {
-                const parsedUserData = JSON.parse(userData);
-                const newUserData = {
-                    ...parsedUserData,
-                    ...updatedUserData
-                };
-                await AsyncStorage.setItem("UserData", JSON.stringify(newUserData));
-                dispatch({
-                    type: 'LOGIN',
-                    payload: newUserData,
-                });
-            }
-        } catch (error) {
-            console.error('Error updating user data:', error);
-        }
-    };
+export const updateUser = updatedUserData => {  
+  return {
+    type: 'UPDATE_DETAIL',
+    payload: updatedUserData,
+  };
 };
+
+export const updateAvatarUrl = (url) => ({
+  type: 'UPDATE_AVATAR_URL',
+  payload: url,
+})

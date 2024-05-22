@@ -4,11 +4,11 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import HomeScreen from '../screens/HomeScreen';
 import MenuStack from './MenuStack';
 import CartStack from './CartStack';
 import UserStack from './UserStack';
 import { PaperProvider } from 'react-native-paper';
+import HomeStack from './HomeStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +29,7 @@ function AppBottomNavigation() {
         initialRouteName="Home">
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeStack}
           options={{
             tabBarStyle: {borderTopColor: '#f4c95d'},
             tabBarLabel: 'Home',
@@ -80,6 +80,13 @@ function AppBottomNavigation() {
 function getVisibility(route, tabName) {
   const routeName = getFocusedRouteNameFromRoute(route) ?? tabName;
   switch (tabName) {
+    case 'Home':
+      switch (routeName) {
+        case 'Detail_Dishes':
+          return 'none';
+        default:
+          return 'flex';
+      }
     case 'Menu':
       switch (routeName) {
         case 'Detail_Dishes':
@@ -91,6 +98,7 @@ function getVisibility(route, tabName) {
       switch (routeName) {
         case 'Reservation':
         case 'Detail_Reservation':
+        case 'Update_Reservation':
           return 'none';
         default:
           return 'flex';

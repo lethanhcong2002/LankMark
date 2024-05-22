@@ -1,8 +1,11 @@
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import { Alert } from 'react-native';
+import { updateAvatarUrl } from '../actions/authAction';
 
+const CUSTOMER = firestore().collection('Customers');
 GoogleSignin.configure({
   webClientId:
     '341241663453-qg43r8k99d0810m3tr81e50e6l9hrbb6.apps.googleusercontent.com',
@@ -27,7 +30,7 @@ export const handleLogin = (email, password) => {
               email: userData.customerEmail || user.email || '',
               phoneNumber: userData.phoneNumber || '',
               citizenID: userData.citizenID || '',
-              photoURL: userData.photoURL || user.photoURL || '',
+              photoURL: userData.avatarUrl || user.photoURL || '',
             };
             resolve(combinedUserData);
           } catch (error) {
@@ -74,8 +77,7 @@ export const handleLoginWithGoogle = () => {
 
 export const getUserData = (uid) => {
   return new Promise((resolve, reject) => {
-    firestore()
-      .collection('Customers')
+    CUSTOMER
       .doc(uid)
       .get()
       .then((doc) => {
@@ -95,9 +97,31 @@ export const getUserData = (uid) => {
 
 export const updateUserInfo = async (uid, newData) => {
   try {
-    await firestore().collection('Customers').doc(uid).update(newData);
+    await CUSTOMER.doc(uid).update(newData);
     return true;
   } catch (error) {
     return false;
+  }
+};
+
+export const changeAvatarAccount = async (uid, imagePath, dispatch) => {
+  try {
+    if (imagePath) {
+      const storageRef = storage().ref(`/customer_avatar/${uid}.png`);
+      await storageRef.putFile(imagePath);
+      console.log('File uploaded to Firebase Storage');
+
+      const imageUrl = await storageRef.getDownloadURL();
+      console.log('Image URL:', imageUrl);
+
+      await firestore().collection('Customers').doc(uid).update({
+        avatarUrl: imageUrl,
+      });
+      Alert.alert("Vui lòng chờ đợi hình ảnh cập nhật");
+
+      dispatch(updateAvatarUrl(imageUrl));
+    }
+  } catch (error) {
+    console.error('Error updating avatar:', error);
   }
 };

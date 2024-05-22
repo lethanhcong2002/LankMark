@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
-import {IconButton, Menu, Button, Text, Portal} from 'react-native-paper';
+import React, { useState } from 'react';
+import { IconButton, Menu, Button, Text, Portal } from 'react-native-paper';
 import CustomDialog from './CustomDialog';
+import { deleteReservation } from '../handle_code/reservationManage';
 
-function CustomDotMenu({navigation}) {
+function CustomDotMenu({ navigation, reservationData }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const [dialogVisible, setDialogVisible] = useState(false);
 
@@ -11,7 +12,7 @@ function CustomDotMenu({navigation}) {
 
   const navigateToDetail = screenName => {
     closeMenu();
-    navigation.navigate(screenName);
+    navigation.navigate(screenName, { reservationData: reservationData });
   };
 
   const showDialog = () => {
@@ -21,6 +22,7 @@ function CustomDotMenu({navigation}) {
   const hideDialog = () => setDialogVisible(false);
 
   const handleCancelReservation = () => {
+    deleteReservation(reservationData.id);
     hideDialog();
   };
 
@@ -35,7 +37,7 @@ function CustomDotMenu({navigation}) {
           title="Xem chi tiết"
         />
         <Menu.Item
-          onPress={() => navigateToDetail('Reservation')}
+          onPress={() => navigateToDetail('Update_Reservation')}
           title="Thay đổi thông tin"
         />
         <Menu.Item onPress={showDialog} title="Hủy đặt bàn" />

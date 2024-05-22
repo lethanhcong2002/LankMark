@@ -14,16 +14,6 @@ import { useColorScheme } from 'react-native';
 function RootNavigator() {
 
   const useScheme = useColorScheme();  
-
-  const dispatch = useDispatch();
-
-  const init = () => {
-    dispatch(Init());
-  }
-  
-  useEffect(() => {
-    init();
-  }, []);
   
   const user = useSelector(state => state.auth.userData);
 
