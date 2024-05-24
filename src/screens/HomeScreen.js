@@ -6,10 +6,11 @@ import { getNewestDishes, getPopularDishes } from '../handle_code/dishesManage';
 import { useDispatch } from 'react-redux';
 import { getData } from '../actions/dataAction';
 
-function HomeScreen({navigation}) {
+function HomeScreen({ navigation }) {
 
   const [bodyData, setBodyData] = useState([]);
   const [popularDishes, setPopularDishes] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,24 +33,12 @@ function HomeScreen({navigation}) {
   const dispatch = useDispatch();
 
   const handleDetailDishes = (item) => {
-    navigation.navigate('Detail_Dishes')
-    dispatch(getData(item))
+    navigation.navigate('Detail_Dishes');
+    dispatch(getData(item));
   }
-  // const icons = [
-  //   { icon: 'faHome', value: '1' },
-  //   { icon: 'faHome', value: '2' },
-  //   { icon: 'faHome', value: '3' },
-  //   { icon: 'faHome', value: '4' },
-  //   { icon: 'faHome', value: '5' },
-  // ];
+
   return (
     <ScrollView>
-      {/* <View className="py-4">
-        <Text className="px-4 pb-4 text-xl font-bold">
-          Loại món được yêu thích nhất
-        </Text>
-        <SliderIcon data={icons} />
-      </View> */}
       <View className="py-4 px-4">
         <Text className="text-xl font-bold">Thịnh hành nhất</Text>
         {popularDishes.map((item) => (
@@ -60,7 +49,8 @@ function HomeScreen({navigation}) {
           >
             <ImageBackground
               source={{ uri: item.imageURL }}
-              className="justify-center items-center flex-row h-24">
+              className="justify-center items-center flex-row h-24"
+            >
               <View className="justify-center items-center h-full w-full" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
                 <Text className="text-white font-bold text-lg">{item.foodName}</Text>
               </View>
@@ -78,7 +68,8 @@ function HomeScreen({navigation}) {
           >
             <ImageBackground
               source={{ uri: item.imageURL }}
-              className="justify-center items-center flex-row h-24">
+              className="justify-center items-center flex-row h-24"
+            >
               <View className="justify-center items-center h-full w-full" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
                 <Text className="text-white font-bold text-lg">{item.foodName}</Text>
               </View>
@@ -86,9 +77,6 @@ function HomeScreen({navigation}) {
           </TouchableOpacity>
         ))}
       </View>
-      {/* <View className="py-4 px-4">
-        <Text className="text-xl font-bold">Tin tức</Text>
-      </View> */}
     </ScrollView>
   );
 }

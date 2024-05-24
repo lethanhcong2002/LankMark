@@ -36,14 +36,14 @@ function UserInfoScreen({navigation}) {
         </TouchableOpacity>
       </View>
       <View className="pt-4 px-4">
-        <View className="flex-row items-center">
+        <TouchableOpacity className="flex-row items-center" onPress={() => navigation.navigate("Invoice")}>
           <Text>Hóa đơn</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <View className="pt-4 px-4">
-        <View className="flex-row items-center">
+        <TouchableOpacity className="flex-row items-center" onPress={() => navigation.navigate("Statistics")}>
           <Text>Thống kê</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <Divider className="mt-4" />
       <View className="pt-4 px-4">

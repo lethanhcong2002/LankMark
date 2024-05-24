@@ -20,8 +20,8 @@ function ReservationScreen({navigation}) {
     await addNewReservation({
       customerId: user.uid,
       customerName: user.customerName,
-      idCard: user.citizenID,
-      phoneNumber: user.phoneNumber,
+      idCard: Number(user.citizenID),
+      phoneNumber: Number(user.phoneNumber),
       numberOfPeople: Number(numberOfPeople),
       bookingDate: date.toISOString(),
       bookingTime: new Date().toISOString(),

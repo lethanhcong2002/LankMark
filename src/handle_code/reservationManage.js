@@ -39,12 +39,44 @@ async function updateReservation(id, data) {
 
 async function deleteReservation(id) {
     try {
-        await RESERVATIONS.doc(id).update({status : "Hủy đặt bàn"});
+        await RESERVATIONS.doc(id).update({ status: "Hủy đặt" });
         Alert.alert("Hủy đặt bàn thành công");
     } catch (error) {
         console.log(error);
     }
 }
 
+function getInvoiceActive(id, callback) {
+    try {
+        return RESERVATIONS.where('customerId', '==', id).onSnapshot(snapshot => {
+            const dishes = snapshot.docs.map(doc => ({
+                ...doc.data(),
+                id: doc.id
+            })).filter(doc => doc.status !== 'Hủy đặt' && doc.status !== 'Đã thanh toán');
 
-export {addNewReservation, getReservationList, updateReservation, deleteReservation};
+            callback(dishes);
+        }, error => {
+            console.error("Error fetching reservations:", error);
+        });
+    } catch (error) {
+        console.error("Error fetching reservations:", error);
+    }
+}
+
+function getInvoiceComplete(id, callback) {
+    try {
+        return RESERVATIONS.where('customerId', '==', id).onSnapshot(snapshot => {
+            const dishes = snapshot.docs.map(doc => ({
+                ...doc.data(),
+                id: doc.id
+            })).filter(doc => doc.status === 'Hủy đặt' || doc.status === 'Đã thanh toán');
+
+            callback(dishes);
+        }, error => {
+            console.error("Error fetching reservations:", error);
+        });
+    } catch (error) {
+        console.error("Error fetching reservations:", error);
+    }
+}
+export { addNewReservation, getReservationList, updateReservation, deleteReservation, getInvoiceActive, getInvoiceComplete };

@@ -53,10 +53,6 @@ function DetailReservationScreen({route}) {
               </Text>
             </View>
           </Card.Content>
-          <Card.Actions>
-            <Button>Cập nhật</Button>
-            <Button>Hủy lịch</Button>
-          </Card.Actions>
         </Card>
       </View>
     </ScrollView>
