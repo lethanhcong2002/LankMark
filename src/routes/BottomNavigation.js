@@ -99,6 +99,7 @@ function getVisibility(route, tabName) {
         case 'Reservation':
         case 'Detail_Reservation':
         case 'Update_Reservation':
+        case 'Order_Menu':
           return 'none';
         default:
           return 'flex';

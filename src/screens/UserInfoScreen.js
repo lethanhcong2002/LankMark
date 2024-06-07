@@ -1,22 +1,26 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {ScrollView, View, TouchableOpacity, Image} from 'react-native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {Divider, Text} from 'react-native-paper';
 import { logoutUser } from '../actions/authAction';
 import auth from '@react-native-firebase/auth';
 
 function UserInfoScreen({navigation}) {
   const user = useSelector(state => state.auth.userData);
+  const loginType = useSelector(state => state.auth.typeLogin);
   const dispatch = useDispatch();
   const handleLogout = async () => {
     try {
-      //GoogleSignin.revokeAccess() logout google
+      if (loginType === 'google') {
+        await GoogleSignin.revokeAccess();
+      }
       await auth().signOut();
       dispatch(logoutUser());
     } catch (error) {
       console.log('Sign out error:', error);
     }
-  };
+  }
 
   useEffect(() => {
     console.log(user);

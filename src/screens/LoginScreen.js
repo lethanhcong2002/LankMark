@@ -27,7 +27,7 @@ function LoginScreen({navigation}) {
     try {
       setIsLoading(true);
       const userData = await handleLogin(email, password);
-      dispatch(loginUser(userData));
+      dispatch(loginUser(userData, 'email-password'));
     } catch (error) {
       console.error('Login error:', error);
       setIsLoading(false);
@@ -40,7 +40,7 @@ function LoginScreen({navigation}) {
     try {
       setIsLoading(true);
       const userData = await handleLoginWithGoogle();
-      dispatch(loginUser(userData));
+      dispatch(loginUser(userData, 'google'));
     } catch (error) {
       console.error('Google Sign In error:', error);
       setIsLoading(false);

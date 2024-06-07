@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconButton, Menu, Button, Text, Portal } from 'react-native-paper';
+import { IconButton, Menu, Portal } from 'react-native-paper';
 import CustomDialog from './CustomDialog';
 import { deleteReservation } from '../handle_code/reservationManage';
 
@@ -36,11 +36,26 @@ function CustomDotMenu({ navigation, reservationData }) {
           onPress={() => navigateToDetail('Detail_Reservation')}
           title="Xem chi tiết"
         />
-        <Menu.Item
-          onPress={() => navigateToDetail('Update_Reservation')}
-          title="Thay đổi thông tin"
-        />
-        <Menu.Item onPress={showDialog} title="Hủy đặt bàn" />
+        {reservationData.status === 'Đã nhận bàn' ? (
+          <>
+            <Menu.Item
+              onPress={() => navigateToDetail('Order_Menu')}
+              title="Gọi món"
+            />
+            <Menu.Item
+              onPress={() => navigateToDetail('Payment')}
+              title="Thanh toán"
+            />
+          </>
+        ) : (
+          <>
+            <Menu.Item
+              onPress={() => navigateToDetail('Update_Reservation')}
+              title="Thay đổi thông tin"
+            />
+            <Menu.Item onPress={showDialog} title="Hủy đặt bàn" />
+          </>
+        )}
       </Menu>
 
       <Portal>

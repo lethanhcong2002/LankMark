@@ -5,6 +5,7 @@ import CartScreen from '../screens/CartScreen';
 import ReservationScreen from '../screens/ReservationScreen';
 import DetailReservationScreen from '../screens/DetailReservationScreen';
 import UpdateReservationScreen from '../screens/UpdateReservationScreen';
+import OrderScreen from '../screens/OrderScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,14 @@ function CartStack() {
         component={UpdateReservationScreen}
         options={{
           title: 'Cập nhật thông tin',
+        }}
+        navigation={navigation}
+      />
+      <Stack.Screen
+        name="Order_Menu"
+        component={OrderScreen}
+        options={{
+          title: 'Gọi món',
         }}
         navigation={navigation}
       />

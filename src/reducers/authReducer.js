@@ -1,6 +1,7 @@
 // reducers/authReducer.js
 const initialState = {
   userData: null,
+  typeLogin: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -8,12 +9,14 @@ const authReducer = (state = initialState, action) => {
     case 'LOGIN':
       return {
         ...state,
-        userData: action.payload,
+        userData: action.payload.userData,
+        typeLogin: action.payload.typeLogin,
       };
     case 'LOGOUT':
       return {
         ...state,
         userData: null,
+        typeLogin: null,
       };
     case 'UPDATE_DETAIL':
       return {
@@ -32,5 +35,6 @@ const authReducer = (state = initialState, action) => {
       return state;
   }
 };
+
 
 export default authReducer;

@@ -17,7 +17,7 @@ function getReservationList(id, callback) {
             const dishes = snapshot.docs.map(doc => ({
                 ...doc.data(),
                 id: doc.id
-            })).filter(doc => doc.status !== 'Hủy đặt bàn' && doc.status !== 'Đã thanh toán');
+            })).filter(doc => doc.status !== 'Hủy đặt' && doc.status !== 'Đã thanh toán');
 
             callback(dishes);
         }, error => {
