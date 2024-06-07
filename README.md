@@ -1,4 +1,4 @@
-Link demo: https://youtu.be/Ipb80sPEU2k
+
 ﻿# Giao diện đăng nhâp
 ![z5470613564615_31c8ee5dd16b3c4e08ce5c1ae5ccab88](https://github.com/lethanhcong2002/LankMark/assets/150000453/7162b66f-1755-402a-9c55-d2f94954439c)
 # Giao diện đăng ký tài khoản
@@ -23,3 +23,4 @@ Link demo: https://youtu.be/Ipb80sPEU2k
 ![z5470613606663_0b745951528057f5a6157e31e36904eb](https://github.com/lethanhcong2002/LankMark/assets/150000453/be2ecf3e-c854-47c7-98ba-f1342881839e)
 # Giao diện thống kê
 ![z5470613611697_6fd548faf3de9473cae84aa28b3995b0](https://github.com/lethanhcong2002/LankMark/assets/150000453/3c5609ab-d941-4b78-8ec1-c8a10623e550)
+# Link demo: https://youtu.be/Ipb80sPEU2k
